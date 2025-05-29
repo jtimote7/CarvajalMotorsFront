@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="example-button-row">
+        <button color="primary" mat-flat-button [routerLink]="['/merchant-table']" routerLinkActive="router-link-active"
+            routerLinkActive="router-link-active">Atras</button>
+    </div>
+    <div>
+        <h1>Registro Mercancia</h1>
+    </div>
+    <form (ngSubmit)="save()" #merchantForm="ngForm">
+        <mat-form-field>
+            <mat-label>Nombre Producto</mat-label>
+            <input matInput name="nombreproducto" [(ngModel)]="merchant.nombreproducto">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" name="cantidad" (keypress)="validNumber($event)"
+                [(ngModel)]="merchant.cantidad">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Fecha Ingreso</mat-label>
+            <input matInput [matDatepicker]="dp" name="fechaingreso" [(ngModel)]="merchant.fechaingreso" [max]="hoy" />
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Usuario</mat-label>
+            <mat-select name="usuarioregistro" [(ngModel)]="merchant.usuarioregistro">
+                <mat-option [value]="item.idusuario" *ngFor="let item of usersDto">
+                    {{item.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p>Usuario seleccionado: {{ merchant.usuarioregistro }}</p>
+        <div class="example-button-row">
+            <button color="primary" mat-flat-button>Registrar</button>
+        </div>
+    </form>
+</div>
